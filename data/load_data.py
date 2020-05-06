@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[14]:
+# In[16]:
 
 
 import pandas as pd
@@ -21,7 +21,7 @@ def load_csse_data():
     df2 = df2.loc[df2['Country/Region'] == 'Canada']
     df3 = df3.loc[df3['Country/Region'] == 'Canada']
     
-    return [df1,df2,df3]
+    return [df1.reset_index(),df2.reset_index(),df3.reset_index()]
 
 
 # In[ ]:
