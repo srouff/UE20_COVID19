@@ -15,14 +15,14 @@ class SIRModelSolver():
         self.R_ = R_0
         
     def fit(self, y):
-        return odeint(deriv, y)
+        pass
     
-    def deriv(self, ndays, dt=1):
-        for i in range(ndays-1):
-            self.S_[i+1] = self.S_[i] - self.β_ * (self.S_[i] * self.I_[i]) * dt
-            self.I_[i+1] = self.I_[i] + (self.β_ * self.S_[i] * self.I_[1] - self.γ_ * self.I_[i]) * dt
-            self.R_[i+1] = self.R_[i] + (self.γ_ * self.I_[i]) * dt
-        return self.S_, self.I_, self.R_
+    def deriv(self, y, t, N, β, γ):
+        S,I,R = y
+        dSdt = -β * S * I / N
+        dIdt = β * S * I / N - γ * I
+        dRdt = γ * I
+        return dSdt, dIdt, dRdt
     
     def predict(self, X):
         pass
