@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[16]:
+# In[37]:
 
 
 import pandas as pd
@@ -17,11 +17,28 @@ def load_csse_data():
     df3 = pd.read_csv(curdir+'csse_covid19_time_series/time_series_covid19_recovered_global.csv', sep=',')
     
     ## On filtre sur le sous-ensemble qui nous intéresse (le Canada dans notre cas)
-    df1 = df1.loc[df1['Country/Region'] == 'Canada']
-    df2 = df2.loc[df2['Country/Region'] == 'Canada']
-    df3 = df3.loc[df3['Country/Region'] == 'Canada']
+    df_conf = df1.loc[df1['Country/Region'] == 'Canada']
+    df_deat = df2.loc[df2['Country/Region'] == 'Canada']
+    df_glob = df3.loc[df3['Country/Region'] == 'Canada']
     
-    return [df1.reset_index(),df2.reset_index(),df3.reset_index()]
+    df_conf.drop(['Province/State', 'Country/Region', 'Lat', 'Long'], axis=1, inplace=True)
+    df_deat.drop(['Province/State', 'Country/Region', 'Lat', 'Long'], axis=1, inplace=True)
+    
+    lc = []
+    ld = []
+    
+    for key,value in df_conf.iteritems():
+        lc.append(df_conf[key].sum())
+        
+    for key,value in df_deat.iteritems():
+        ld.append(df_deat[key].sum())
+        
+    ret = pd.DataFrame()
+    ret['t'] = list(range(105))
+    ret['I'] = lc
+    ret['D'] = ld
+    
+    return ret
 
 
 # In[ ]:
