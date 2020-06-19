@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[37]:
+# In[6]:
 
 
 import pandas as pd
@@ -23,6 +23,7 @@ def load_csse_data():
     
     df_conf.drop(['Province/State', 'Country/Region', 'Lat', 'Long'], axis=1, inplace=True)
     df_deat.drop(['Province/State', 'Country/Region', 'Lat', 'Long'], axis=1, inplace=True)
+    print(df_conf)
     
     lc = []
     ld = []
@@ -34,7 +35,7 @@ def load_csse_data():
         ld.append(df_deat[key].sum())
         
     ret = pd.DataFrame()
-    ret['t'] = list(range(105))
+    ret['t'] = list(range(149))
     ret['I'] = lc
     ret['D'] = ld
     
